@@ -51,21 +51,23 @@
                             <tbody>
                                 @foreach ($orders as $order)
                                 <tr>
-                                    <td>{{ $order->order_code ?? ''}}</td>
+                                    <td>
+                                        <a href="{{ route('report.print', $order->id) }}" target="_blank">
+                                            {{ $order->order_code ?? '' }}
+                                        </a>
+                                    </td>
                                     <td>{{ $order->customer->customer_name  ?? ''}}</td>
                                     <td>{{ date('d F Y', strtotime($order->order_date)) ?? ''}}</td>
                                     <td><span
                                             class="badge {{ $order->status_class }}">{{ $order->status_text ?? '' }}</span>
                                     </td>
                                     <td>Rp {{ number_format($order->total) ?? '' }}</td>
-                                </tr>
-                                <tr>
-                                    <th colspan="4" class="text-right">Jumlah Keseluruhan</th>
-                                    <th>Rp. {{ number_format($order->total, 0, ',', '.') }}</th>
-                                </tr>
 
+                                </tr>
                                 @endforeach
                             </tbody>
+                            {{-- <th colspan="4" class="text-right">Jumlah Keseluruhan</th>
+                            <th>Rp. {{ number_format($order->subtotal, 0, ',', '.') }}</th> --}}
                         </table>
                     </div>
                 </div>

@@ -664,8 +664,7 @@
             const transaction = {
                 id:`TRX-${transactionCounter.toString().padStart(3, '0')}`,
                 customer: {
-                id: name, 
-                // name: name,
+                id: customerName, 
                 phone: customerPhone,
                 address: customerAddress,
                 },
@@ -727,7 +726,7 @@
                     <div class="receipt-header">
                         <h2>🧺 LAUNDRY RECEIPT</h2>
                         <p>ID: ${transaction.id}</p>
-                        <p>Tanggal: ${new Date(transaction.date).toLocaleString(
+                        <p>Tanggal: ${new Date(transaction.order_date).toLocaleString(
                           "id-ID"
                         )}</p>
                     </div>
