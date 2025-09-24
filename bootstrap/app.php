@@ -1,0 +1,42 @@
+<?php
+
+use App\Http\Middleware\AdminOperator;
+use Illuminate\Foundation\Application;
+use App\Http\Middleware\RoleMiddleware;
+use Illuminate\Foundation\Configuration\Exceptions;
+use Illuminate\Foundation\Configuration\Middleware;
+
+return Application::configure(basePath: dirname(__DIR__))
+    ->withRouting(
+        web: __DIR__.'/../routes/web.php',
+        commands: __DIR__.'/../routes/console.php',
+        health: '/up',
+    )
+    ->withMiddleware(function (Middleware $middleware): void {
+         $middleware->alias([
+        'role' => RoleMiddleware::class
+    ]);
+    })
+     ->withMiddleware(function (Middleware $middleware): void {
+        $middleware->alias([
+            'Administrator' => \App\Http\Middleware\Administrator::class,
+        ]);
+    })
+    ->withMiddleware(function (Middleware $middleware): void {
+        $middleware->alias([
+            'Operator' => \App\Http\Middleware\Operator::class,
+        ]);
+    })
+    ->withMiddleware(function (Middleware $middleware): void {
+        $middleware->alias([
+            'pimpinan' => \App\Http\Middleware\Pimpinan::class,
+        ]);
+    })
+    ->withMiddleware(function (Middleware $middleware): void {
+        $middleware->alias([
+            'AdminOperator' => AdminOperator::class,
+        ]);
+    })
+    ->withExceptions(function (Exceptions $exceptions): void {
+        //
+    })->create();
